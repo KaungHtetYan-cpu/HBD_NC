@@ -563,7 +563,7 @@
                         <span>100% Goofy! 🤪</span>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl aspect-square bg-slate-900 mb-4 border border-rose-500/20">
-                        <img id="funnyImg0" src="908D13CB-D141-4DD4-A361-D20401127AFC.jpeg" alt="Goofy Laugh" class="w-full h-full object-cover">
+                        <img id="funnyImg0" data-media="908D13CB-D141-4DD4-A361-D20401127AFC.jpeg" alt="Goofy Laugh" class="w-full h-full object-cover">
                         <button onclick="triggerFunnyUpload(0)" class="absolute bottom-2 right-2 bg-black/70 hover:bg-crimson text-white px-3 py-1.5 rounded-full text-xs flex items-center gap-1 backdrop-blur-md transition">
                             <i class="fa-solid fa-camera"></i>
                             <span>Swap Photo</span>
@@ -581,7 +581,7 @@
                         <span>Caught Off Guard 📸</span>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl aspect-square bg-slate-900 mb-4 border border-rose-500/20">
-                        <img id="funnyImg1" src="littlemoment.JPG" alt="Silly Face" class="w-full h-full object-cover">
+                        <img id="funnyImg1" data-media="littlemoment.JPG" alt="Silly Face" class="w-full h-full object-cover">
                         <button onclick="triggerFunnyUpload(1)" class="absolute bottom-2 right-2 bg-black/70 hover:bg-crimson text-white px-3 py-1.5 rounded-full text-xs flex items-center gap-1 backdrop-blur-md transition">
                             <i class="fa-solid fa-camera"></i>
                             <span>Swap Photo</span>
@@ -599,7 +599,7 @@
                         <span>Master Pouter 👑</span>
                     </div>
                     <div class="relative overflow-hidden rounded-2xl aspect-square bg-slate-900 mb-4 border border-rose-500/20">
-                        <img id="funnyImg2" src="908D13CB-D141-4DD4-A361-D20401127AFC.jpeg" alt="Cute Pout" class="w-full h-full object-cover">
+                        <img id="funnyImg2" data-media="908D13CB-D141-4DD4-A361-D20401127AFC.jpeg" alt="Cute Pout" class="w-full h-full object-cover">
                         <button onclick="triggerFunnyUpload(2)" class="absolute bottom-2 right-2 bg-black/70 hover:bg-crimson text-white px-3 py-1.5 rounded-full text-xs flex items-center gap-1 backdrop-blur-md transition">
                             <i class="fa-solid fa-camera"></i>
                             <span>Swap Photo</span>
@@ -854,6 +854,12 @@
             document.getElementById('visualizer').classList.remove('flex');
         }
 
+        const MEDIA_ROOT = location.hostname.endsWith('github.io') ? '' : 'NC/';
+
+        function assetPath(filename) {
+            return `${MEDIA_ROOT}${filename}`;
+        }
+
         // Edit this list to change the ten photos shown on the Memories page.
         const MEMORY_PHOTOS = [
             { type: 'video', src: 'nc.mp4', title: 'Our Story in Motion', desc: 'A little moving memory to begin our story.' },
@@ -875,8 +881,8 @@
                 <article class="memory-entry">
                     <div class="memory-entry-image">
                         ${photo.type === 'video'
-                            ? `<video src="${photo.src}" autoplay muted loop playsinline controls aria-label="${photo.title}"></video>`
-                            : `<img src="${photo.src}" alt="${photo.title}">`}
+                            ? `<video src="${assetPath(photo.src)}" autoplay muted loop playsinline controls aria-label="${photo.title}"></video>`
+                            : `<img src="${assetPath(photo.src)}" alt="${photo.title}">`}
                     </div>
                     <div class="memory-entry-copy">
                         <h3>${photo.title}</h3>
@@ -970,6 +976,9 @@
         }
 
         window.onload = function() {
+            document.querySelectorAll('[data-media]').forEach((image) => {
+                image.src = assetPath(image.dataset.media);
+            });
             renderMemoryGallery();
             setupMemoryCelebration();
             // Optional preview trigger for debugging or quick view
