@@ -313,7 +313,7 @@
 </head>
 <body class="locked-state bg-obsidian text-slate-100 font-sans min-h-screen overflow-x-hidden relative selection:bg-crimson selection:text-white">
 
-    <video id="backgroundVideo" class="hidden" loop playsinline preload="auto" aria-hidden="true">
+    <video id="backgroundVideo" class="hidden" loop playsinline preload="none" aria-hidden="true">
         <source src="Taylor Swift - Daylight (Official Audio).mp4" type="video/mp4">
     </video>
 
@@ -860,6 +860,16 @@
             return `${MEDIA_ROOT}${filename}`;
         }
 
+        function prepareBackgroundAudio() {
+            const backgroundVideo = document.getElementById('backgroundVideo');
+            if (backgroundVideo.preload !== 'auto') {
+                backgroundVideo.preload = 'auto';
+                backgroundVideo.load();
+            }
+        }
+
+        document.getElementById('pwInput').addEventListener('focus', prepareBackgroundAudio);
+
         // Edit this list to change the ten photos shown on the Memories page.
         const MEMORY_PHOTOS = [
             { type: 'video', src: 'nc.mp4', title: 'Our Story in Motion', desc: 'A little moving memory to begin our story.' },
@@ -881,8 +891,8 @@
                 <article class="memory-entry">
                     <div class="memory-entry-image">
                         ${photo.type === 'video'
-                            ? `<video src="${assetPath(photo.src)}" autoplay muted loop playsinline controls aria-label="${photo.title}"></video>`
-                            : `<img src="${assetPath(photo.src)}" alt="${photo.title}">`}
+                            ? `<video src="${assetPath(photo.src)}" preload="none" playsinline controls aria-label="${photo.title}"></video>`
+                            : `<img src="${assetPath(photo.src)}" alt="${photo.title}" loading="lazy">`}
                     </div>
                     <div class="memory-entry-copy">
                         <h3>${photo.title}</h3>
