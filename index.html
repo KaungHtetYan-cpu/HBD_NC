@@ -182,6 +182,20 @@
             visibility: visible;
         }
 
+        .heart-unlock-button { position: relative; display: flex; align-items: center; justify-content: center; width: 5.25rem; height: 5.25rem; margin: 1.6rem auto 0; border: 1px solid rgba(255, 117, 151, 0.55); border-radius: 50%; background: radial-gradient(circle, rgba(255, 42, 95, 0.32), rgba(255, 0, 85, 0.08) 62%, transparent 63%); color: #fff; box-shadow: 0 0 0 rgba(255, 0, 85, 0); transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease; }
+        .heart-unlock-button::before, .heart-unlock-button::after { content: ''; position: absolute; inset: -0.65rem; border: 1px solid rgba(255, 117, 151, 0.18); border-radius: 50%; transform: scale(0.7); opacity: 0; }
+        .heart-unlock-button::after { inset: -1.15rem; border-color: rgba(255, 0, 85, 0.12); }
+        .heart-unlock-icon { width: 2.7rem; height: 2.7rem; overflow: visible; fill: rgba(255, 42, 95, 0.2); stroke: #ff9ab1; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 76; stroke-dashoffset: 76; transition: fill 0.35s ease, filter 0.35s ease; }
+        .heart-unlock-button:hover, .lock-card-ready .heart-unlock-button { border-color: #ff7597; box-shadow: 0 0 24px rgba(255, 0, 85, 0.5), inset 0 0 18px rgba(255, 42, 95, 0.2); transform: scale(1.06); }
+        .lock-card-ready .heart-unlock-icon { fill: rgba(255, 42, 95, 0.8); filter: drop-shadow(0 0 8px rgba(255, 117, 151, 0.9)); animation: heartTrace 1.8s ease-in-out infinite; }
+        .lock-card-ready .heart-unlock-button::before { animation: unlockRipple 1.8s ease-out infinite; }
+        .lock-card-ready .heart-unlock-button::after { animation: unlockRipple 1.8s 0.55s ease-out infinite; }
+        .lock-card-unlocking .heart-unlock-button { animation: unlockPulse 0.85s ease-in-out both; }
+        .lock-card-unlocking .heart-unlock-icon { animation: heartTrace 0.85s ease-in-out both; }
+        @keyframes heartTrace { 0% { stroke-dashoffset: 76; } 55%, 100% { stroke-dashoffset: 0; } }
+        @keyframes unlockRipple { 0% { opacity: 0.7; transform: scale(0.7); } 100% { opacity: 0; transform: scale(1.18); } }
+        @keyframes unlockPulse { 0%, 100% { transform: scale(1); } 45% { transform: scale(1.18); box-shadow: 0 0 44px rgba(255, 0, 85, 0.9), 0 0 80px rgba(255, 117, 151, 0.45); } }
+
         html,
         body {
             overscroll-behavior-y: none;
@@ -270,6 +284,39 @@
             .memory-ending-content { padding: 1.25rem; }
             .memory-ending-title { font-size: clamp(3.3rem, 16vw, 5rem); }
             .memory-ending-copy { font-size: 0.88rem; line-height: 1.65; }
+        }
+
+        /* Editorial photo gallery */
+        .photo-gallery { position: relative; max-width: 1120px; margin: 0 auto; padding: clamp(1.2rem, 4vw, 2.75rem); border: 1px solid rgba(255, 117, 151, 0.2); border-radius: 2rem; background: linear-gradient(145deg, rgba(42, 10, 25, 0.9), rgba(14, 5, 12, 0.82)); box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3); }
+        .photo-gallery-header { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; }
+        .photo-gallery-kicker { color: #ff7597; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; }
+        .photo-gallery-title { margin-top: 0.35rem; color: #fff5f7; font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 4rem); font-style: italic; line-height: 1; }
+        .photo-gallery-subtitle { max-width: 18rem; color: rgba(255, 219, 227, 0.68); font-family: 'Montserrat', sans-serif; font-size: 0.7rem; line-height: 1.6; text-align: right; }
+        .photo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(130px, 10vw); gap: 0.75rem; }
+        .photo-card { position: relative; min-width: 0; overflow: hidden; border-radius: 1rem; background: #24101a; border: 1px solid rgba(255, 117, 151, 0.16); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.22); cursor: pointer; isolation: isolate; }
+        .photo-card:nth-child(1), .photo-card:nth-child(4) { grid-column: span 2; grid-row: span 2; }
+        .photo-card:nth-child(7) { grid-column: span 2; }
+        .photo-card-media { display: block; width: 100%; height: 100%; min-height: 100%; object-fit: cover; filter: saturate(0.92) contrast(1.04); transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.55s ease; }
+        .photo-card::after { content: ''; position: absolute; inset: 35% 0 0; z-index: 0; background: linear-gradient(transparent, rgba(8, 2, 5, 0.9)); pointer-events: none; }
+        .photo-card:hover .photo-card-media, .photo-card:focus-within .photo-card-media { transform: scale(1.06); filter: saturate(1.08) contrast(1.05); }
+        .photo-card-copy { position: absolute; right: 0; bottom: 0; left: 0; z-index: 1; padding: 1rem; color: #fff; pointer-events: none; }
+        .photo-card-number { color: #ff9ab1; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.16em; }
+        .photo-card-copy h3 { margin-top: 0.3rem; font-family: 'Playfair Display', serif; font-size: clamp(0.95rem, 1.8vw, 1.35rem); line-height: 1.1; }
+        .photo-card-copy p { display: none; }
+        .photo-gallery-footer { margin-top: 1.25rem; color: rgba(255, 219, 227, 0.62); font-family: 'Montserrat', sans-serif; font-size: 0.65rem; letter-spacing: 0.08em; text-align: center; text-transform: uppercase; }
+        @media (max-width: 640px) {
+            .photo-gallery { padding: 1rem; border-radius: 1.35rem; }
+            .photo-gallery-header { display: block; margin-bottom: 1.1rem; }
+            .photo-gallery-title { font-size: clamp(2.15rem, 11vw, 3.25rem); }
+            .photo-gallery-subtitle { max-width: 15rem; margin-top: 0.7rem; text-align: left; }
+            .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 34vw; gap: 0.55rem; }
+            .photo-card:nth-child(1), .photo-card:nth-child(4) { grid-column: span 2; grid-row: span 2; }
+            .photo-card:nth-child(7) { grid-column: span 1; }
+            .photo-card { border-radius: 0.8rem; }
+            .photo-card-copy { padding: 0.7rem; }
+            .photo-card-copy h3 { font-size: 0.82rem; }
+            .photo-card-number { font-size: 0.5rem; }
+            .photo-gallery-footer { margin-top: 1rem; font-size: 0.56rem; }
         }
 
         /* Final page animation */
@@ -362,7 +409,7 @@
                 </div>
 
                 <h1 class="text-3xl md:text-4xl font-serif font-bold text-white mb-2">Access Our World</h1>
-                <p class="text-rose-300/80 text-sm mb-6 font-light">A special place, created just for you <span class="text-crimson">♥</span></p>
+                <p class="text-rose-300/80 text-sm mb-6 font-light">Choose our special date, then follow the heart <span class="text-crimson">♥</span></p>
 
                 <!-- Form Container -->
                 <form onsubmit="handleUnlock(event)" class="space-y-4 text-left">
@@ -384,9 +431,10 @@
                         <span>Oops! Think of our special date ♥</span>
                     </div>
 
-                    <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-crimson to-cherry hover:from-cherry hover:to-crimson text-white font-semibold shadow-[0_0_25px_rgba(255,0,85,0.6)] hover:shadow-[0_0_35px_rgba(255,42,95,0.8)] transition transform active:scale-95 flex items-center justify-center gap-2 text-base">
-                        <span>Unlock Surprise</span>
-                        <i class="fa-solid fa-heart text-white text-sm"></i>
+                    <button type="submit" class="heart-unlock-button" aria-label="Open our story" title="Open our story">
+                        <svg class="heart-unlock-icon" viewBox="0 0 32 32" aria-hidden="true">
+                            <path d="M16 27.2S4.5 20.4 4.5 11.8C4.5 8.6 6.8 6.3 9.8 6.3c2.4 0 4.4 1.4 6.2 3.5 1.8-2.1 3.8-3.5 6.2-3.5 3 0 5.3 2.3 5.3 5.5 0 8.6-11.5 15.4-11.5 15.4Z"></path>
+                        </svg>
                     </button>
                 </form>
 
@@ -491,15 +539,17 @@
         <!-- ==================== PAGE 3: PRECIOUS MEMORIES ==================== -->
         <section id="page3" class="page-view page-hidden py-6 space-y-8">
             
-            <div class="memory-book">
-                <div class="memory-book-header">
-                    <div class="memory-book-kicker">A chapter of us</div>
-                    <h2 class="memory-book-title">Our Precious Memories</h2>
-                    <p class="memory-book-subtitle">Turn the pages slowly. Every photograph keeps a little piece of the day we made it.</p>
+            <div class="photo-gallery">
+                <div class="photo-gallery-header">
+                    <div>
+                        <div class="photo-gallery-kicker">Frames of us</div>
+                        <h2 class="photo-gallery-title">The Good Stuff</h2>
+                    </div>
+                    <p class="photo-gallery-subtitle">A little collection of the smiles, places, and moments I never want to forget.</p>
                 </div>
-                <div id="polaroidGrid" class="memory-entries"></div>
-                <div class="memory-book-footer">
-                    <p>Every memory becomes more beautiful when it is shared with you.</p>
+                <div id="polaroidGrid" class="photo-grid"></div>
+                <div class="photo-gallery-footer">
+                    <span>Still choosing you, frame by frame</span>
                 </div>
             </div>
             <div id="memoryCelebration" class="memory-ending" aria-live="polite">
@@ -507,7 +557,7 @@
                 <div class="memory-ending-content">
                     <div class="memory-ending-icon"><i class="fa-solid fa-gift"></i></div>
                     <div class="memory-ending-kicker">One last celebration for you</div>
-                    <h2 class="memory-ending-title">Happy Birthday and Happy Anniversary Baby</h2>
+                    <h2 class="memory-ending-title">Happy Birthday and Happy  Baby</h2>
                     <p class="memory-ending-copy">After every memory, every smile, and every page, this is what my heart wants to say most: I love celebrating life with you.</p>
                 </div>
             </div>
@@ -668,6 +718,7 @@
 
     <script>
         const VALID_UNLOCK_DATES = ["2025-12-28", "2026-09-28"];
+        let isUnlocking = false;
 
         function resetLockedScroll() {
             if (document.body.classList.contains('locked-state')) {
@@ -686,23 +737,26 @@
 
         function handleUnlock(e) {
             e.preventDefault();
+            if (isUnlocking) return;
             const inputVal = document.getElementById('pwInput').value;
             const lockCard = document.getElementById('lockCard');
             const errBox = document.getElementById('lockError');
 
             if (VALID_UNLOCK_DATES.includes(inputVal)) {
                 errBox.classList.add('hidden');
-                document.body.classList.remove('locked-state');
-                
-                // Play audio hint tone
-                playChimeSound();
-                startBackgroundVideo();
+                isUnlocking = true;
+                lockCard.classList.add('lock-card-unlocking');
 
-                // Unlock app UI
-                document.getElementById('topBar').classList.remove('opacity-0', '-translate-y-full', 'pointer-events-none');
-                document.getElementById('bottomNav').classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
-
-                switchPage('page2');
+                setTimeout(() => {
+                    document.body.classList.remove('locked-state');
+                    playChimeSound();
+                    startBackgroundVideo();
+                    document.getElementById('topBar').classList.remove('opacity-0', '-translate-y-full', 'pointer-events-none');
+                    document.getElementById('bottomNav').classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
+                    switchPage('page2');
+                    lockCard.classList.remove('lock-card-unlocking', 'lock-card-ready');
+                    isUnlocking = false;
+                }, 850);
             } else {
                 // Shake animation on error
                 lockCard.classList.remove('animate-shake');
@@ -713,6 +767,7 @@
         }
 
         function lockApp() {
+            isUnlocking = false;
             document.getElementById('pwInput').value = '';
             document.body.classList.add('locked-state');
             stopBackgroundVideo();
@@ -869,15 +924,22 @@
             }
         }
 
-        document.getElementById('pwInput').addEventListener('focus', prepareBackgroundAudio);
+        const dateInput = document.getElementById('pwInput');
+        dateInput.addEventListener('focus', prepareBackgroundAudio);
+        dateInput.addEventListener('input', () => {
+            const lockCard = document.getElementById('lockCard');
+            const isValidDate = VALID_UNLOCK_DATES.includes(dateInput.value);
+            lockCard.classList.toggle('lock-card-ready', isValidDate);
+            if (isValidDate) document.getElementById('lockError').classList.add('hidden');
+        });
 
         // Edit this list to change the ten photos shown on the Memories page.
         const MEMORY_PHOTOS = [
-            { type: 'video', src: 'nc.mp4', title: 'Our Story in Motion', desc: 'A little moving memory to begin our story.' },
-            { type: 'video', src: 'Chapter 2.mp4', title: 'A Kiss to Remember', desc: 'The sweetest moment, when you kissed me and time stood still.' },
-            { src: '3.jpg', title: 'Our Favorite Moment', desc: 'Under the soft starry lights together.' },
-            { type: 'video', src: 'Chapter 4.MOV', title: 'Together Forever', desc: 'Hand in hand through every season.' },
-            { src: '5.jpg', title: 'My Happy Place', desc: 'In your arms is where I belong.' },
+            { src: 'Firstdate.JPG', title: 'Our First Date', desc: 'The day our little story began.' },
+            { src: 'breadtalk.jpg', title: 'BreadTalk & Deep Talks ☕️✨', desc: 'Just endless conversations, deep talks, and getting to know the real us.' },
+            { src: 'lastbd.jpg', title: 'Another Year, Same Side 🎂🤍', desc: 'Celebrating you is my favorite thing to do.' },
+            { src: '3.jpg', title: 'Our Favorite Moment', desc: 'Beside the soothing sound of the waves, under the soft starry lights together.' },
+            { src: '5.jpg', title: 'Pure Intentions ✨', desc: 'Your happiness is my favorite thing. Always wishing the best for you.' },
             { src: '6.jpg', title: 'Your Radiant Smile', desc: 'The prettiest smile in the universe.' },
             { src: '2.jpg', title: 'Adventures Ahead', desc: 'Looking forward to endless dates with you.' },
             { src: 'littlemoment.JPG', title: 'Little Moments', desc: 'Every little moment with you is special.' },
@@ -889,22 +951,22 @@
             const grid = document.getElementById('polaroidGrid');
 
             grid.innerHTML = MEMORY_PHOTOS.map((photo, index) => `
-                <article class="memory-entry">
-                    <div class="memory-entry-image">
+                <article class="photo-card">
+                    <div class="photo-card-media-wrap">
                         ${photo.type === 'video'
-                            ? `<video src="${assetPath(photo.src)}" preload="none" playsinline controls aria-label="${photo.title}"></video>`
-                            : `<img src="${assetPath(photo.src)}" alt="${photo.title}" loading="lazy">`}
+                            ? `<video class="photo-card-media" src="${assetPath(photo.src)}" preload="none" playsinline controls aria-label="${photo.title}"></video>`
+                            : `<img class="photo-card-media" src="${assetPath(photo.src)}" alt="${photo.title}" loading="lazy">`}
                     </div>
-                    <div class="memory-entry-copy">
+                    <div class="photo-card-copy">
+                        <div class="photo-card-number">${String(index + 1).padStart(2, '0')}</div>
                         <h3>${photo.title}</h3>
-                        <div class="memory-entry-rule"></div>
                         <p>${photo.desc}</p>
                     </div>
                 </article>
             `).join('');
 
-            grid.querySelectorAll('.memory-entry').forEach((entry, index) => {
-                const media = entry.querySelector('.memory-entry-image');
+            grid.querySelectorAll('.photo-card').forEach((entry, index) => {
+                const media = entry.querySelector('.photo-card-media-wrap');
                 if (media.querySelector('video')) return;
                 media.addEventListener('click', () => {
                     const photo = MEMORY_PHOTOS[index];
@@ -934,7 +996,7 @@
         let isFunnyTarget = false;
 
         function openLightbox(imgSrc, title, desc) {
-            document.getElementById('lightboxImg').src = imgSrc;
+            document.getElementById('lightboxImg').src = assetPath(imgSrc);
             document.getElementById('lightboxTitle').innerText = title;
             document.getElementById('lightboxDesc').innerText = desc;
             const lightbox = document.getElementById('lightbox');
