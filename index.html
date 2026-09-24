@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday My Love ♥ | 28.12.2025</title>
+    <title>My Love ♥</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -357,6 +357,32 @@
             .ending-title { font-size: clamp(3.2rem, 16vw, 5rem); }
             .ending-copy { margin-top: 1rem; font-size: 0.88rem; line-height: 1.65; }
         }
+
+        .memory-ending { min-height: min(78vh, 720px); border-color: rgba(255, 117, 151, 0.28); background: radial-gradient(circle at 50% 38%, rgba(255, 42, 95, 0.2), transparent 34%), linear-gradient(145deg, rgba(39, 6, 22, 0.96), rgba(15, 3, 11, 0.98)); box-shadow: 0 25px 70px rgba(0, 0, 0, 0.38), inset 0 0 45px rgba(255, 0, 85, 0.08); }
+        .memory-ending-content { width: min(100%, 38rem); padding: 3.5rem 1.5rem; }
+        .memory-ending-icon { font-size: 3.5rem; }
+        .memory-ending-kicker { margin-top: 1.25rem; color: #ff88a5; font-family: 'Montserrat', sans-serif; font-size: 0.68rem; letter-spacing: 0.3em; }
+        .memory-ending-title { max-width: 36rem; margin-top: 0.8rem; color: #fff7fa; font-family: 'Great Vibes', cursive; font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 400; line-height: 0.9; text-shadow: 0 0 18px rgba(255, 42, 95, 0.75), 0 4px 25px rgba(0, 0, 0, 0.4); }
+        .memory-ending-title .title-ampersand { color: #ff7597; font-family: 'Playfair Display', serif; font-size: 0.58em; font-style: italic; }
+        .memory-ending-title .title-count { color: #ffb1c3; font-size: 0.72em; }
+        .memory-ending-subtitle { margin-top: 0.75rem; color: #ff7597; font-family: 'Playfair Display', serif; font-size: clamp(1.25rem, 3vw, 1.7rem); font-style: italic; }
+        .memory-counter { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; max-width: 30rem; margin: 2rem auto 0; }
+        .memory-counter-item { padding: 0.75rem 0.35rem 0.65rem; border: 1px solid rgba(255, 117, 151, 0.25); border-radius: 0.9rem; background: rgba(255, 255, 255, 0.045); box-shadow: inset 0 0 18px rgba(255, 42, 95, 0.06); }
+        .memory-counter-value { display: block; color: #fff; font-family: 'Playfair Display', serif; font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 600; line-height: 1; }
+        .memory-counter-label { display: block; margin-top: 0.35rem; color: rgba(255, 190, 205, 0.72); font-family: 'Montserrat', sans-serif; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; }
+        .memory-ending-copy { max-width: 28rem; margin-top: 1.5rem; color: rgba(255, 225, 232, 0.78); font-family: 'Playfair Display', serif; font-size: 0.95rem; line-height: 1.8; }
+        @media (max-width: 640px) {
+            .memory-ending { min-height: min(78vh, 650px); }
+            .memory-ending-content { padding: 2.75rem 1rem; }
+            .memory-ending-kicker { font-size: 0.57rem; letter-spacing: 0.2em; }
+            .memory-ending-title { font-size: clamp(3.2rem, 15vw, 5.2rem); line-height: 0.91; }
+            .memory-ending-subtitle { font-size: 1.15rem; }
+            .memory-counter { gap: 0.35rem; margin-top: 1.65rem; }
+            .memory-counter-item { padding: 0.65rem 0.15rem 0.55rem; border-radius: 0.7rem; }
+            .memory-counter-value { font-size: 1.25rem; }
+            .memory-counter-label { font-size: 0.46rem; letter-spacing: 0.06em; }
+            .memory-ending-copy { margin-top: 1.2rem; font-size: 0.82rem; line-height: 1.65; }
+        }
     </style>
 </head>
 <body class="locked-state bg-obsidian text-slate-100 font-sans min-h-screen overflow-x-hidden relative selection:bg-crimson selection:text-white">
@@ -557,8 +583,15 @@
                 <div class="memory-ending-content">
                     <div class="memory-ending-icon"><i class="fa-solid fa-gift"></i></div>
                     <div class="memory-ending-kicker">One last celebration for you</div>
-                    <h2 class="memory-ending-title">Happy Birthday and Happy  Baby</h2>
-                    <p class="memory-ending-copy">After every memory, every smile, and every page, this is what my heart wants to say most: I love celebrating life with you.</p>
+                    <h2 class="memory-ending-title">Happy Birthday <span class="title-ampersand">&amp;</span><br>Happy <span id="dayCount" class="title-count">273</span> Days</h2>
+                    <p class="memory-ending-subtitle">and still counting</p>
+                    <div class="memory-counter" aria-label="Our relationship time counter">
+                        <div class="memory-counter-item"><strong id="counterDays" class="memory-counter-value">273</strong><span class="memory-counter-label">Days</span></div>
+                        <div class="memory-counter-item"><strong id="counterHours" class="memory-counter-value">00</strong><span class="memory-counter-label">Hours</span></div>
+                        <div class="memory-counter-item"><strong id="counterMinutes" class="memory-counter-value">00</strong><span class="memory-counter-label">Minutes</span></div>
+                        <div class="memory-counter-item"><strong id="counterSeconds" class="memory-counter-value">00</strong><span class="memory-counter-label">Seconds</span></div>
+                    </div>
+                    <p class="memory-ending-copy">Every day with you is my favorite chapter. Here is to every laugh, every little moment, and all the days still waiting for us.</p>
                 </div>
             </div>
                 
@@ -1048,12 +1081,31 @@
             document.getElementById('complimentModal').classList.add('opacity-0', 'pointer-events-none');
         }
 
+        const relationshipStart = new Date('2025-12-28T00:00:00');
+
+        function updateRelationshipCounter() {
+            const elapsedMilliseconds = Math.max(0, Date.now() - relationshipStart.getTime());
+            const totalSeconds = Math.floor(elapsedMilliseconds / 1000);
+            const days = Math.floor(totalSeconds / 86400);
+            const hours = Math.floor((totalSeconds % 86400) / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            document.getElementById('dayCount').textContent = days;
+            document.getElementById('counterDays').textContent = days;
+            document.getElementById('counterHours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('counterMinutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('counterSeconds').textContent = String(seconds).padStart(2, '0');
+        }
+
         window.onload = function() {
             document.querySelectorAll('[data-media]').forEach((image) => {
                 image.src = assetPath(image.dataset.media);
             });
             renderMemoryGallery();
             setupMemoryCelebration();
+            updateRelationshipCounter();
+            setInterval(updateRelationshipCounter, 1000);
             // Optional preview trigger for debugging or quick view
             console.log("Romantic Birthday Wish Web App initialized!");
         }
